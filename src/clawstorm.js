@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * 🌪️ CLAWSTORM ENGINE V 0.3 (With File Attachment Support)
+ * 🌪️ CLAWSTORM ENGINE V 1.0.2 (With File Attachment Support)
  * "Beyond the tail, unleash the storm with design assets."
  * 
  * Developer: Guntur Hidayat

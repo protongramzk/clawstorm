@@ -1,5 +1,5 @@
 /**
- * 🌪️ CLAWSTORM CLI CORE v0.3
+ * 🌪️ CLAWSTORM CLI CORE v1.0.2
  * Main logic for CLI operations
  * 
  * Handles:
@@ -68,9 +68,9 @@ Define your custom design tokens here.
 
 export default class ClawStormCLI {
   constructor(configPath = null, debug = false) {
-    this.configPath = configPath;
-    this.debug = debug;
     this.projectRoot = process.cwd();
+    this.configPath = configPath ? path.resolve(this.projectRoot, configPath) : null;
+    this.debug = debug;
   }
 
   /**
@@ -81,8 +81,8 @@ export default class ClawStormCLI {
    * @returns {object} { configPath, mdPath }
    */
   async init(force = false) {
-    const configPath = path.join(this.projectRoot, 'clawstorm.yaml');
-    const mdPath = path.join(this.projectRoot, 'clawstorm.md');
+    const configPath = path.resolve(this.projectRoot, 'clawstorm.yaml');
+    const mdPath = path.resolve(this.projectRoot, 'clawstorm.md');
 
     // Check existing files
     if (fs.existsSync(configPath) && !force) {
@@ -91,7 +91,7 @@ export default class ClawStormCLI {
 
     // Get project name
     let projectName = DEFAULT_CONFIG.project;
-    const packageJsonPath = path.join(this.projectRoot, 'package.json');
+    const packageJsonPath = path.resolve(this.projectRoot, 'package.json');
     
     if (fs.existsSync(packageJsonPath)) {
       try {
@@ -139,8 +139,8 @@ export default class ClawStormCLI {
     
     if (!configPath) {
       // Try default locations
-      const defaultPath = path.join(this.projectRoot, 'clawstorm.yaml');
-      const genPath = path.join(this.projectRoot, 'clawstorm.yml');
+      const defaultPath = path.resolve(this.projectRoot, 'clawstorm.yaml');
+      const genPath = path.resolve(this.projectRoot, 'clawstorm.yml');
       
       if (fs.existsSync(defaultPath)) {
         configPath = defaultPath;
@@ -177,7 +177,7 @@ export default class ClawStormCLI {
    * @returns {Promise<string>} MD content
    */
   async loadMDConfig() {
-    const mdPath = path.join(this.projectRoot, 'clawstorm.md');
+    const mdPath = path.resolve(this.projectRoot, 'clawstorm.md');
 
     if (!fs.existsSync(mdPath)) {
       if (this.debug) {
@@ -266,7 +266,7 @@ export default class ClawStormCLI {
    */
   readFile(filePath) {
     try {
-      const fullPath = path.join(this.projectRoot, filePath);
+      const fullPath = path.resolve(this.projectRoot, filePath);
       return fs.readFileSync(fullPath, 'utf-8');
     } catch (error) {
       console.warn(chalk.yellow(`⚠️  Could not read: ${filePath}`));
@@ -483,7 +483,7 @@ export default class ClawStormCLI {
       const mergedCSS = this.mergeCSS(cssResults, minify);
 
       // Ensure output directory exists
-      const outputPath = path.join(this.projectRoot, config.output);
+      const outputPath = path.resolve(this.projectRoot, config.output);
       const outputDir = path.dirname(outputPath);
 
       if (!fs.existsSync(outputDir)) {

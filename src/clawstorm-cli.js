@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * 🌪️ CLAWSTORM CLI TOOL v0.3
+ * 🌪️ CLAWSTORM CLI TOOL v1.0.2
  * Command-line interface untuk ClawStorm CSS Generation Engine
  * 
  * Usage:
@@ -29,10 +29,10 @@ const __dirname = path.dirname(__filename);
 // ============================================================================
 
 const packageJson = JSON.parse(
-  fs.readFileSync(path.join(__dirname, 'package.json'), 'utf-8')
+  fs.readFileSync(path.join(__dirname, '..', 'package.json'), 'utf-8')
 );
 
-const VERSION = packageJson.version || '0.3.0';
+const VERSION = packageJson.version || '1.0.2';
 
 // ============================================================================
 // SETUP COMMANDER
@@ -69,7 +69,7 @@ program
       console.log('\n' + chalk.yellow('Next steps:'));
       console.log('  1. Edit clawstorm.yaml to customize settings');
       console.log('  2. Run: clst build');
-      console.log('\n' + chalk.gray('Learn more: https://github.com/gunturhidayat/clawstorm'));
+      console.log('\n' + chalk.gray('Learn more: https://github.com/protongramzk/clawstorm'));
     } catch (error) {
       spinner.fail(chalk.red('Initialization failed'));
       console.error(chalk.red(`❌ ${error.message}`));
@@ -218,7 +218,7 @@ program
     console.log(`  Platform: ${process.platform}`);
     console.log(`  CWD: ${process.cwd()}`);
 
-    console.log('\n' + chalk.gray('Learn more: https://github.com/gunturhidayat/clawstorm'));
+    console.log('\n' + chalk.gray('Learn more: https://github.com/protongramzk/clawstorm'));
     console.log('');
   });
 
