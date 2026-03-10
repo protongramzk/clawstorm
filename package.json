@@ -1,5 +1,5 @@
 {
-  "name": "clawstorm-cli",
+  "name": "clawstorm",
   "version": "1.1.1",
   "description": "ClawStorm - CSS utilities with AI-powered generation",
   "type": "module",
