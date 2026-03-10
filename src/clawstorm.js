@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 /**
  * 🌪️ CLAWSTORM ENGINE V 0.3 (With File Attachment Support)
  * "Beyond the tail, unleash the storm with design assets."

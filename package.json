@@ -1,21 +1,50 @@
 {
-  "name": "clawstorm",
-  "version": "1.0.0",
-  "description": "",
-  "license": "MIT",
-  "author": "",
+  "name": "clawstorm-cli",
+  "version": "0.3.0",
+  "description": "ClawStorm - CSS utilities with AI-powered generation",
   "type": "module",
-  "main": "index.js",
+  "main": "./src/clawstorm-cli-core.js",
+  "bin": {
+    "clawstorm": "./src/clawstorm-cli.js"
+  },
   "scripts": {
+    "dev": "node clawstorm-cli.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [
+    "css",
+    "generation",
+    "ai",
+    "semantic",
+    "design-system",
+    "cli",
+    "mistral",
+    "emotion",
+    "stylex"
+  ],
+  "author": "Guntur Hidayat",
+  "license": "MIT",
   "dependencies": {
-    "@ai-sdk/mistral": "^3.0.24",
-    "ai": "^6.0.116",
-    "chalk": "^5.6.2",
-    "commander": "^14.0.3",
-    "glob": "^13.0.6",
-    "js-yaml": "^4.1.1",
-    "ora": "^9.3.0"
-  }
+    "@ai-sdk/mistral": "^0.0.x",
+    "ai": "^3.0.x",
+    "chalk": "^5.3.x",
+    "commander": "^11.0.x",
+    "glob": "^10.3.x",
+    "js-yaml": "^4.1.x",
+    "ora": "^7.0.x"
+  },
+  "devDependencies": {
+    "eslint": "^8.0.x"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/protongramzk/clawstorm"
+  },
+  "bugs": {
+    "url": "https://github.com/protongramzk/clawstorm/issues"
+  },
+  "homepage": "https://github.com/protongramzk/clawstorm"
 }
