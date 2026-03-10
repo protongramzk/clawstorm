@@ -345,6 +345,9 @@
       .text-5xl { font-size: var(--text-4xl); }
       .text-4xl { font-size: var(--text-3xl); }
     }
+   img{
+    max-width:100%;
+   }
   </style>
 </head>
 <body>
@@ -357,7 +360,7 @@
       
       <!-- Logo Section -->
       <div class="flex flex-col flex-center mb-xl">
-        <img src="./ClawStorm_20260310_062443_0000.png" alt="ClawStorm Logo" class="w-48 mb-xl" style="filter: drop-shadow(0 0 20px rgba(217, 125, 237, 0.2));">
+        <img src="./logo.png" alt="ClawStorm Logo" class="w-48 mb-xl" style="filter: drop-shadow(0 0 20px rgba(217, 125, 237, 0.2));">
       </div>
       
       <!-- Heading -->
@@ -462,7 +465,7 @@
             <span class="bg-gradient-primary text-white rounded-full w-8 h-8 flex-center font-bold text-sm">1</span>
             Install and Initialize
           </h3>
-          <pre><code class="language-bash">npm install clawstorm-cli
+          <pre><code class="language-bash">npm install clawstorm
 clst init</code></pre>
         </div>
         
