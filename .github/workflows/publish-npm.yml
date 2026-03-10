@@ -16,7 +16,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       
       - run: npm install
-      - run: npm run build # Opsional, kalau ada proses build
+      # Opsional, kalau ada proses build
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
