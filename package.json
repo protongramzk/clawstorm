@@ -1,6 +1,6 @@
 {
   "name": "clawstorm",
-  "version": "1.1.1",
+  "version": "1.0.2",
   "description": "ClawStorm - CSS utilities with AI-powered generation",
   "type": "module",
   "main": "./src/clawstorm-cli-core.js",
@@ -8,7 +8,7 @@
     "clawstorm": "./src/clawstorm-cli.js"
   },
   "scripts": {
-    "dev": "node clawstorm-cli.js",
+    "dev": "node src/clawstorm-cli.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [

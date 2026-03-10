@@ -1,5 +1,5 @@
 /**
- * 🌪️ CLAWSTORM CLI CORE v0.3
+ * 🌪️ CLAWSTORM CLI CORE v1.0.2
  * Main logic for CLI operations
  * 
  * Handles:
@@ -68,7 +68,7 @@ Define your custom design tokens here.
 
 export default class ClawStormCLI {
   constructor(configPath = null, debug = false) {
-    this.configPath = configPath;
+    this.configPath = configPath ? path.resolve(process.cwd(), configPath) : null;
     this.debug = debug;
     this.projectRoot = process.cwd();
   }

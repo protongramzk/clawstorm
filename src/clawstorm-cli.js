@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * 🌪️ CLAWSTORM CLI TOOL v0.3
+ * 🌪️ CLAWSTORM CLI TOOL v1.0.2
  * Command-line interface untuk ClawStorm CSS Generation Engine
  * 
  * Usage:
@@ -29,10 +29,10 @@ const __dirname = path.dirname(__filename);
 // ============================================================================
 
 const packageJson = JSON.parse(
-  fs.readFileSync(path.join(__dirname, 'package.json'), 'utf-8')
+  fs.readFileSync(path.join(__dirname, '..', 'package.json'), 'utf-8')
 );
 
-const VERSION = packageJson.version || '0.3.0';
+const VERSION = packageJson.version || '1.0.2';
 
 // ============================================================================
 // SETUP COMMANDER
