@@ -1,0 +1,19 @@
+project: docs
+extensions:
+  - js
+  - jsx
+  - ts
+  - tsx
+  - html
+  - vue
+  - svelte
+  - astro
+output: dist/styles.css
+type: css
+minify: false
+chunkSize: 3
+exclude:
+  - node_modules
+  - dist
+  - .git
+  - .next

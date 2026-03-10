@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌪️ ClawStorm - Semantic CSS Generation Engine</title>
+  
+  <!-- Geist Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- JetBrains Mono for Code -->
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <!-- Prism.js for Syntax Highlighting -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-dark.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css">
+  
+  <style>
+    /* ========================================================================
+       ROOT VARIABLES & DESIGN TOKENS
+       ======================================================================== */
+    
+    :root {
+      /* Primary Colors - Soft Pastel Purple (WCAG Compliant) */
+      --color-primary: #7C5CED;        /* Soft Purple */
+      --color-primary-light: #9D7FEF;  /* Light Purple */
+      --color-primary-lighter: #B8A1F5; /* Even Lighter */
+      
+      /* Secondary Colors - Soft Pastel Magenta (WCAG Compliant) */
+      --color-secondary: #D97DED;      /* Soft Magenta */
+      --color-secondary-light: #E5A3F5; /* Light Magenta */
+      --color-secondary-lighter: #EFC9F9; /* Very Light Magenta */
+      
+      /* Neutral Colors - Cold Dark Tones */
+      --color-dark: #0A0E27;           /* Very Dark Cold */
+      --color-gray-900: #131B35;       /* Cold Dark */
+      --color-gray-800: #1A2847;       /* Cold Darker */
+      --color-gray-700: #243456;       /* Cold Gray-Blue */
+      --color-gray-600: #3A4F6E;       /* Cool Medium */
+      --color-gray-500: #5A6F8F;       /* Cool Light-Medium */
+      --color-gray-300: #8A9FB5;       /* Cool Light */
+      --color-gray-200: #B5CAE0;       /* Cool Very Light */
+      --color-gray-100: #D9E5F0;       /* Cool Pale */
+      --color-white: #F5F8FB;
+      
+      /* Status Colors */
+      --color-success: #10B981;
+      --color-warning: #F59E0B;
+      --color-error: #EF4444;
+      --color-info: #3B82F6;
+      
+      /* Spacing Scale */
+      --space-xs: 0.25rem;    /* 4px */
+      --space-sm: 0.5rem;     /* 8px */
+      --space-md: 1rem;       /* 16px */
+      --space-lg: 1.5rem;     /* 24px */
+      --space-xl: 2rem;       /* 32px */
+      --space-2xl: 3rem;      /* 48px */
+      --space-3xl: 4rem;      /* 64px */
+      
+      /* Typography */
+      --font-geist: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      
+      --text-xs: 0.75rem;
+      --text-sm: 0.875rem;
+      --text-base: 1rem;
+      --text-lg: 1.125rem;
+      --text-xl: 1.25rem;
+      --text-2xl: 1.5rem;
+      --text-3xl: 1.875rem;
+      --text-4xl: 2.25rem;
+      --text-5xl: 3rem;
+      
+      /* Shadows */
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+      --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      
+      /* Transitions */
+      --transition-fast: 150ms ease;
+      --transition-normal: 300ms ease;
+      --transition-slow: 500ms ease;
+      
+      /* Border Radius */
+      --rounded-sm: 0.25rem;
+      --rounded-md: 0.375rem;
+      --rounded-lg: 0.5rem;
+      --rounded-xl: 0.75rem;
+      --rounded-2xl: 1rem;
+      --rounded-3xl: 1.5rem;
+      --rounded-full: 9999px;
+    }
+    
+    /* ========================================================================
+       GLOBAL STYLES
+       ======================================================================== */
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      font-family: var(--font-geist);
+      background: linear-gradient(135deg, #050812 0%, #0A0E27 30%, #131B35 60%, #1A2847 100%);
+      color: var(--color-gray-200);
+      line-height: 1.6;
+      font-size: var(--text-base);
+    }
+    
+    /* ========================================================================
+       UTILITY CLASSES
+       ======================================================================== */
+    
+    /* Display & Layout */
+    .flex { display: flex; }
+    .flex-col { flex-direction: column; }
+    .flex-center { justify-content: center; align-items: center; }
+    .flex-between { justify-content: space-between; align-items: center; }
+    .flex-start { justify-content: flex-start; align-items: center; }
+    .flex-end { justify-content: flex-end; align-items: center; }
+    .gap-xs { gap: var(--space-xs); }
+    .gap-sm { gap: var(--space-sm); }
+    .gap-md { gap: var(--space-md); }
+    .gap-lg { gap: var(--space-lg); }
+    .gap-xl { gap: var(--space-xl); }
+    
+    .grid { display: grid; }
+    .grid-cols-1 { grid-template-columns: 1fr; }
+    .grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+    .grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+    
+    .block { display: block; }
+    .inline-block { display: inline-block; }
+    .inline-flex { display: inline-flex; }
+    
+    /* Spacing */
+    .p-xs { padding: var(--space-xs); }
+    .p-sm { padding: var(--space-sm); }
+    .p-md { padding: var(--space-md); }
+    .p-lg { padding: var(--space-lg); }
+    .p-xl { padding: var(--space-xl); }
+    .p-2xl { padding: var(--space-2xl); }
+    .p-3xl { padding: var(--space-3xl); }
+    
+    .px-md { padding-left: var(--space-md); padding-right: var(--space-md); }
+    .px-lg { padding-left: var(--space-lg); padding-right: var(--space-lg); }
+    .px-xl { padding-left: var(--space-xl); padding-right: var(--space-xl); }
+    
+    .py-md { padding-top: var(--space-md); padding-bottom: var(--space-md); }
+    .py-lg { padding-top: var(--space-lg); padding-bottom: var(--space-lg); }
+    .py-xl { padding-top: var(--space-xl); padding-bottom: var(--space-xl); }
+    .py-2xl { padding-top: var(--space-2xl); padding-bottom: var(--space-2xl); }
+    .py-3xl { padding-top: var(--space-3xl); padding-bottom: var(--space-3xl); }
+    
+    .m-auto { margin: auto; }
+    .mx-auto { margin-left: auto; margin-right: auto; }
+    .my-md { margin-top: var(--space-md); margin-bottom: var(--space-md); }
+    .my-lg { margin-top: var(--space-lg); margin-bottom: var(--space-lg); }
+    
+    /* Width & Height */
+    .w-full { width: 100%; }
+    .h-full { height: 100%; }
+    .max-w-screen { max-width: 100vw; }
+    .max-w-5xl { max-width: 64rem; }
+    .max-w-4xl { max-width: 56rem; }
+    
+    /* Text Styles */
+    .text-xs { font-size: var(--text-xs); }
+    .text-sm { font-size: var(--text-sm); }
+    .text-base { font-size: var(--text-base); }
+    .text-lg { font-size: var(--text-lg); }
+    .text-xl { font-size: var(--text-xl); }
+    .text-2xl { font-size: var(--text-2xl); }
+    .text-3xl { font-size: var(--text-3xl); }
+    .text-4xl { font-size: var(--text-4xl); }
+    .text-5xl { font-size: var(--text-5xl); }
+    
+    .font-regular { font-weight: 400; }
+    .font-medium { font-weight: 500; }
+    .font-semibold { font-weight: 600; }
+    .font-bold { font-weight: 700; }
+    
+    .text-primary { color: var(--color-primary); }
+    .text-secondary { color: var(--color-secondary); }
+    .text-white { color: var(--color-white); }
+    .text-gray-100 { color: var(--color-gray-100); }
+    .text-gray-200 { color: var(--color-gray-200); }
+    .text-gray-300 { color: var(--color-gray-300); }
+    .text-gray-600 { color: var(--color-gray-600); }
+    
+    .text-center { text-align: center; }
+    .text-left { text-align: left; }
+    .text-right { text-align: right; }
+    
+    /* Backgrounds */
+    .bg-dark { background-color: var(--color-dark); }
+    .bg-gray-900 { background-color: var(--color-gray-900); }
+    .bg-gray-800 { background-color: var(--color-gray-800); }
+    .bg-primary { background-color: var(--color-primary); }
+    .bg-secondary { background-color: var(--color-secondary); }
+    .bg-gradient-primary {
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+    }
+    
+    .bg-opacity-10 { opacity: 0.1; }
+    .bg-opacity-20 { opacity: 0.2; }
+    
+    /* Borders */
+    .border { border: 1px solid var(--color-gray-700); }
+    .border-primary { border: 1px solid var(--color-primary); }
+    .border-secondary { border: 1px solid var(--color-secondary); }
+    .rounded-lg { border-radius: var(--rounded-lg); }
+    .rounded-xl { border-radius: var(--rounded-xl); }
+    .rounded-2xl { border-radius: var(--rounded-2xl); }
+    .rounded-full { border-radius: var(--rounded-full); }
+    
+    /* Shadow & Hover Effects */
+    .shadow-sm { box-shadow: var(--shadow-sm); }
+    .shadow-md { box-shadow: var(--shadow-md); }
+    .shadow-lg { box-shadow: var(--shadow-lg); }
+    .shadow-xl { box-shadow: var(--shadow-xl); }
+    
+    .hover\:shadow-lg:hover { box-shadow: var(--shadow-lg); transition: box-shadow var(--transition-normal); }
+    .hover\:scale-105:hover { transform: scale(1.05); transition: transform var(--transition-fast); }
+    .hover\:text-secondary:hover { color: var(--color-secondary); transition: color var(--transition-normal); }
+    
+    /* Transitions */
+    .transition { transition: all var(--transition-normal); }
+    .transition-fast { transition: all var(--transition-fast); }
+    
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-sm) var(--space-lg);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      border: none;
+      border-radius: var(--rounded-lg);
+      cursor: pointer;
+      transition: all var(--transition-normal);
+      gap: var(--space-sm);
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+      color: var(--color-white);
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+    
+    .btn-secondary {
+      background-color: var(--color-gray-800);
+      color: var(--color-white);
+      border: 1px solid var(--color-gray-700);
+    }
+    
+    .btn-secondary:hover {
+      background-color: var(--color-gray-700);
+      border-color: var(--color-primary);
+    }
+    
+    /* Cards */
+    .card {
+      background-color: rgba(30, 41, 59, 0.5);
+      border: 1px solid var(--color-gray-700);
+      border-radius: var(--rounded-2xl);
+      padding: var(--space-xl);
+      backdrop-filter: blur(10px);
+      transition: all var(--transition-normal);
+    }
+    
+    .card:hover {
+      border-color: var(--color-primary);
+      box-shadow: var(--shadow-xl);
+      transform: translateY(-4px);
+    }
+    
+    /* Icons */
+    .icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+    
+    .icon-lg { font-size: 2rem; }
+    .icon-xl { font-size: 3rem; }
+    
+    /* Code Block Styling */
+    code:not([class*="language-"]) {
+      background-color: var(--color-gray-900);
+      color: var(--color-secondary);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--rounded-md);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+    }
+    
+    .language-bash, .language-shell {
+      background-color: var(--color-gray-900) !important;
+    }
+    
+    pre[class*="language-"] {
+      background-color: var(--color-dark) !important;
+      border: 1px solid var(--color-gray-700) !important;
+      border-radius: var(--rounded-xl) !important;
+      padding: var(--space-lg) !important;
+      margin: var(--space-lg) 0 !important;
+      font-family: var(--font-mono) !important;
+      box-shadow: var(--shadow-lg);
+    }
+    
+    /* Prism.js overrides */
+    .token.function { color: var(--color-secondary); }
+    .token.keyword { color: var(--color-primary); }
+    .token.string { color: var(--color-success); }
+    .token.comment { color: var(--color-gray-500); }
+    
+    /* ========================================================================
+       RESPONSIVE
+       ======================================================================== */
+    
+    @media (max-width: 768px) {
+      .grid-cols-2 { grid-template-columns: 1fr; }
+      .grid-cols-3 { grid-template-columns: 1fr; }
+      .text-5xl { font-size: var(--text-4xl); }
+      .text-4xl { font-size: var(--text-3xl); }
+    }
+  </style>
+</head>
+<body>
+  <!-- ========================================================================
+       HERO SECTION
+       ======================================================================== -->
+  
+  <section class="w-full py-3xl flex flex-col flex-center">
+    <div class="max-w-5xl w-full px-lg">
+      
+      <!-- Logo Section -->
+      <div class="flex flex-col flex-center mb-xl">
+        <img src="./ClawStorm_20260310_062443_0000.png" alt="ClawStorm Logo" class="w-48 mb-xl" style="filter: drop-shadow(0 0 20px rgba(217, 125, 237, 0.2));">
+      </div>
+      
+      <!-- Heading -->
+      <h1 class="text-5xl font-bold text-center mb-md">
+        <span class="text-secondary">Claw</span><span class="text-primary">Storm</span>
+      </h1>
+      
+      <!-- Tagline -->
+      <p class="text-2xl text-center text-gray-300 mb-2xl font-medium">
+        Lesser bytes, infinite styles
+      </p>
+      
+      <!-- Description -->
+      <p class="text-lg text-center text-gray-400 mb-3xl max-w-4xl mx-auto">
+        Semantic CSS Generation Engine powered by AI. Transform your entire codebase into beautifully generated CSS with intelligent file chunking and design system awareness.
+      </p>
+      
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       FEATURES SECTION
+       ======================================================================== -->
+  
+  <section class="w-full py-3xl">
+    <div class="max-w-5xl w-full px-lg mx-auto">
+      
+      <h2 class="text-4xl font-bold text-center mb-2xl">
+        Powerful Features
+      </h2>
+      
+      <div class="grid grid-cols-3 gap-lg">
+        
+        <!-- Feature 1 -->
+        <div class="card">
+          <div class="text-secondary mb-lg">
+            <span class="material-icons icon-xl">smart_toy</span>
+          </div>
+          <h3 class="text-xl font-bold mb-md">Dual-Layer AI</h3>
+          <p class="text-gray-300">
+            Mistral understands design intent. Generates production CSS with semantic reasoning.
+          </p>
+        </div>
+        
+        <!-- Feature 2 -->
+        <div class="card">
+          <div class="text-primary mb-lg">
+            <span class="material-icons icon-xl">dashboard</span>
+          </div>
+          <h3 class="text-xl font-bold mb-md">Smart Chunking</h3>
+          <p class="text-gray-300">
+            Prevents AI from losing focus. Processes 3 files at a time (configurable).
+          </p>
+        </div>
+        
+        <!-- Feature 3 -->
+        <div class="card">
+          <div class="text-secondary mb-lg">
+            <span class="material-icons icon-xl">palette</span>
+          </div>
+          <h3 class="text-xl font-bold mb-md">Design System</h3>
+          <p class="text-gray-300">
+            Inject design tokens via clawstorm.md. Ensures consistent CSS generation.
+          </p>
+        </div>
+        
+        
+        <!-- Feature 4 -->
+        <div class="card">
+          <div class="text-secondary mb-lg">
+            <span class="material-icons icon-xl">format_shapes</span>
+          </div>
+          <h3 class="text-xl font-bold mb-md">Multiple Formats</h3>
+          <p class="text-gray-300">
+            Pure CSS, Emotion, StyleX. Choose your preferred output format.
+          </p>
+        </div>
+        
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       QUICK START SECTION
+       ======================================================================== -->
+  
+  <section class="w-full py-3xl">
+    <div class="max-w-5xl w-full px-lg mx-auto">
+      
+      <h2 class="text-4xl font-bold text-center mb-2xl">
+        Quick Start
+      </h2>
+      
+      <div class="card">
+        <p class="text-lg text-gray-300 mb-xl">
+          Get started with ClawStorm in 3 simple steps:
+        </p>
+        
+        <!-- Step 1 -->
+        <div class="mb-lg">
+          <h3 class="text-xl font-bold text-secondary mb-md flex gap-md items-center">
+            <span class="bg-gradient-primary text-white rounded-full w-8 h-8 flex-center font-bold text-sm">1</span>
+            Install and Initialize
+          </h3>
+          <pre><code class="language-bash">npm install clawstorm-cli
+clst init</code></pre>
+        </div>
+        
+        <!-- Step 2 -->
+        <div class="mb-lg">
+          <h3 class="text-xl font-bold text-primary mb-md flex gap-md items-center">
+            <span class="bg-gradient-primary text-white rounded-full w-8 h-8 flex-center font-bold text-sm">2</span>
+            Customize Configuration
+          </h3>
+          <p class="text-gray-300 mb-md">Edit <code>clawstorm.yaml</code> and <code>clawstorm.md</code> for your project:</p>
+          <pre><code class="language-yaml">project: my-app
+extensions: [js, jsx, tsx, html]
+output: dist/styles.css
+type: css
+chunkSize: 3
+minify: false</code></pre>
+        </div>
+        
+        <!-- Step 3 -->
+        <div>
+          <h3 class="text-xl font-bold text-secondary mb-md flex gap-md items-center">
+            <span class="bg-gradient-primary text-white rounded-full w-8 h-8 flex-center font-bold text-sm">3</span>
+            Build Your CSS
+          </h3>
+          <pre><code class="language-bash">clst build               # Default config
+clst build --watch      # Watch mode
+clst build --minify     # Production build
+clst build --type emotion  # Emotion format</code></pre>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       COMMANDS SECTION
+       ======================================================================== -->
+  
+  <section class="w-full py-3xl">
+    <div class="max-w-5xl w-full px-lg mx-auto">
+      
+      <h2 class="text-4xl font-bold text-center mb-2xl">
+        Available Commands
+      </h2>
+      
+      <div class="grid grid-cols-2 gap-lg">
+        
+        <!-- clst init -->
+        <div class="card">
+          <h3 class="text-lg font-bold text-primary mb-md flex gap-sm items-center">
+            <span class="material-icons">settings</span>
+            clst init
+          </h3>
+          <p class="text-gray-400 text-sm">
+            Initialize ClawStorm in your project. Creates <code>clawstorm.yaml</code> and <code>clawstorm.md</code>.
+          </p>
+        </div>
+        
+        <!-- clst build -->
+        <div class="card">
+          <h3 class="text-lg font-bold text-secondary mb-md flex gap-sm items-center">
+            <span class="material-icons">build</span>
+            clst build
+          </h3>
+          <p class="text-gray-400 text-sm">
+            Generate CSS from all project files. Supports watch mode and custom output formats.
+          </p>
+        </div>
+        
+        <!-- clst validate -->
+        <div class="card">
+          <h3 class="text-lg font-bold text-primary mb-md flex gap-sm items-center">
+            <span class="material-icons">check_circle</span>
+            clst validate
+          </h3>
+          <p class="text-gray-400 text-sm">
+            Validate configuration and discovered files without building.
+          </p>
+        </div>
+        
+        <!-- clst debug -->
+        <div class="card">
+          <h3 class="text-lg font-bold text-secondary mb-md flex gap-sm items-center">
+            <span class="material-icons">bug_report</span>
+            clst debug
+          </h3>
+          <p class="text-gray-400 text-sm">
+            Run in debug mode with verbose output. Shows file chunking strategy.
+          </p>
+        </div>
+        
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       FOOTER
+       ======================================================================== -->
+  
+  <footer class="w-full py-2xl border-t border-gray-700">
+    <div class="max-w-5xl w-full px-lg mx-auto text-center">
+      <p class="text-gray-500 mb-md">
+        ClawStorm v0.3
+      </p>
+    </div>
+  </footer>
+
+  <!-- ========================================================================
+       PRISM.JS - SYNTAX HIGHLIGHTING
+       ======================================================================== -->
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-yaml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+  
+  <script>
+    // Initialize Prism
+    Prism.highlightAll();
+  </script>
+</body>
+</html>
