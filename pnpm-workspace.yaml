@@ -1,0 +1,5 @@
+# Daftar folder yang akan dijadikan workspace
+packages:
+  - 'packages/*'
+  - 'apps/*'
+  - 'shared/*'
