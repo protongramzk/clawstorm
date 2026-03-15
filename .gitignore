@@ -1,0 +1,27 @@
+# node modules di root
+node_modules/
+
+# node modules di semua subfolder
+**/node_modules/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# build output
+dist/
+build/
+.out/
+
+# env
+.env
+.env.local
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# editor
+.vscode/
+.idea/
